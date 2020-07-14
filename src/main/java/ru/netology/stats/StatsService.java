@@ -2,8 +2,8 @@ package ru.netology.stats;
 
 
 public class StatsService {
-    public static int calculateSum (){
-        int[] sales = {8, 15, 13, 15, 17, 20, 19, 20, 7, 14, 14, 18};
+    int[] sales;
+    public static int calculateSum (int[] sales){
         int sum = 0;
         for (int sale : sales){
             sum += sale;
@@ -11,23 +11,18 @@ public class StatsService {
         return sum;
     }
 
-    public int calculateAverage (){
-        int average = calculateSum()/12;
+    public int calculateAverage (int[] sales){
+        int average = calculateSum(sales)/12;
         return average;
     }
 
     public int monthOfMaxSales (int[] sales){
         int max = sales[0];
-        for (int sale : sales) {
-            if (max <= sale) {
-                max = sale;
-            }
-        }
         int monthOfMax = 0;
-        for (int sale : sales) {
-            monthOfMax += 1;
-            if (sale == max) {
-                return monthOfMax;
+        for(int i=0; i<sales.length; i++) {
+            if(sales[i] >= max) {
+                max = sales[i];
+                monthOfMax = i+1;
             }
         }
         return monthOfMax;
@@ -35,23 +30,19 @@ public class StatsService {
 
     public int monthOfMinSales (int[] sales){
         int min = sales[0];
-        for (int sale : sales) {
-            if (min >= sale) {
-                min = sale;
+        int monthOfMin = 0;
+        for(int i=0; i<sales.length; i++) {
+            if(sales[i] <= min) {
+                min = sales[i];
+                monthOfMin = i+1;
             }
-        }
-            int monthOfMin = 0;
-            for (int sale : sales){
-                monthOfMin += 1;
-                if (sale == min) {
-                    return monthOfMin;
-                }
         }
         return monthOfMin;
     }
 
+
     public int calculateLessThanAverage (int[] sales){
-        int average = calculateAverage();
+        int average = calculateAverage(sales);
         int amountOfMonths = 0;
        for (int sale : sales) {
            if (sale < average){
@@ -62,7 +53,7 @@ public class StatsService {
     }
 
     public int calculateMoreThanAverage (int[] sales){
-        int average = calculateAverage();
+        int average = calculateAverage(sales);
         int amountOfMonths = 0;
         for (int sale : sales) {
             if (sale > average){
